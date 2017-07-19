@@ -53,6 +53,7 @@ public class GithubApplication extends Application {
 
         Timber.plant(new Timber.DebugTree());
 
+        // group NETWORK
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
@@ -60,7 +61,7 @@ public class GithubApplication extends Application {
             }
         });
 
-        // group NETWORK
+
         File cacheFile = new File(getCacheDir(),"okhttp.cache");
         cacheFile.mkdirs();
         Cache cache = new Cache(cacheFile, 10 * 1000 * 1000); //10MB cache
