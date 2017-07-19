@@ -47,6 +47,10 @@ public class RepoListItem extends FrameLayout {
 
     public RepoListItem(Context context) {
         super(context);
+        init();
+    }
+
+    private void init() {
         inflate(getContext(), R.layout.list_item_repo, this);
         ButterKnife.bind(this);
     }
@@ -62,8 +66,14 @@ public class RepoListItem extends FrameLayout {
         issues.setText(String.format(locale, "%d", githubRepo.openIssuesCount));
         forks.setText(String.format(locale, "%d", githubRepo.forksCount));
 
+        updatedAt.setText(DATE_TIME_FORMATTER.print(githubRepo.updatedAt));
+
         updatedAt.setText(getResources()
                 .getString(R.string.last_pushed, DATE_TIME_FORMATTER.print(githubRepo.updatedAt)));
 
+        Picasso.with(getContext())
+                .load(githubRepo.owner.avatarUrl)
+                .placeholder(R.drawable.ic_person_black_24dp)
+                .into(avatarImage);
     }
 }

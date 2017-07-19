@@ -4,7 +4,7 @@
                 android:id="@+id/activity_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.example.dagger2training.HomeActivity">
+                tools:context="com.example.dagger2training.screens.home.HomeActivity">
 
 <ListView
     android:id="@+id/repo_home_list"

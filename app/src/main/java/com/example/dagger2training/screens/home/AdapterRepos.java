@@ -5,15 +5,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.example.dagger2training.HomeActivity;
 import com.example.dagger2training.models.GithubRepo;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class AdapterRepos extends BaseAdapter {
 
