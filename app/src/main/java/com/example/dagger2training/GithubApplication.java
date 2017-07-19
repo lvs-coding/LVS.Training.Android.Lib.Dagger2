@@ -32,6 +32,8 @@ public class GithubApplication extends Application {
     private GithubService githubService;
     private Picasso picasso;
 
+    // __Dependencies tree__
+
     // Activity
 
     //GithubService     picasso
@@ -48,11 +50,7 @@ public class GithubApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
-        Gson gson = gsonBuilder.create();
 
-        // Logging
         Timber.plant(new Timber.DebugTree());
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
@@ -62,7 +60,7 @@ public class GithubApplication extends Application {
             }
         });
 
-        // Caching
+        // group NETWORK
         File cacheFile = new File(getCacheDir(),"okhttp.cache");
         cacheFile.mkdirs();
         Cache cache = new Cache(cacheFile, 10 * 1000 * 1000); //10MB cache
@@ -72,12 +70,16 @@ public class GithubApplication extends Application {
                 .cache(cache)
                 .build();
 
-        // Use Okhttp3 with Picasso
+        // group PICASSO
         picasso = new Picasso.Builder(this)
                 .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
 
-        // Retrofit
+        // group CLIENT
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
+        Gson gson = gsonBuilder.create();
+
         Retrofit gitHubRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
