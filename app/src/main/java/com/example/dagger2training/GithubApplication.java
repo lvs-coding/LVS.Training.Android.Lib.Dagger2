@@ -7,11 +7,20 @@ import com.example.dagger2training.network.DateTimeConverter;
 import com.example.dagger2training.network.GithubService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import org.joda.time.DateTime;
 
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
+import com.jakewharton.picasso.OkHttp3Downloader;
+
+import java.io.File;
 
 
 public class GithubApplication extends Application {
@@ -21,6 +30,19 @@ public class GithubApplication extends Application {
     }
 
     private GithubService githubService;
+    private Picasso picasso;
+
+    // Activity
+
+    //GithubService     picasso
+
+    //retrofit      OkHttpDownloader
+
+    //GSON              okhttp
+
+    //          logger      cache
+
+    //          timber      file
 
     @Override
     public void onCreate() {
@@ -30,8 +52,35 @@ public class GithubApplication extends Application {
         gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
         Gson gson = gsonBuilder.create();
 
+        // Logging
+        Timber.plant(new Timber.DebugTree());
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Timber.i(message);
+            }
+        });
+
+        // Caching
+        File cacheFile = new File(getCacheDir(),"okhttp.cache");
+        cacheFile.mkdirs();
+        Cache cache = new Cache(cacheFile, 10 * 1000 * 1000); //10MB cache
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(loggingInterceptor)
+                .cache(cache)
+                .build();
+
+        // Use Okhttp3 with Picasso
+        picasso = new Picasso.Builder(this)
+                .downloader(new OkHttp3Downloader(okHttpClient))
+                .build();
+
+        // Retrofit
         Retrofit gitHubRetrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
                 .baseUrl("https://api.github.com/")
                 .build();
 
@@ -40,5 +89,9 @@ public class GithubApplication extends Application {
 
     public GithubService getGithubService() {
         return githubService;
+    }
+
+    public Picasso getPicasso() {
+        return picasso;
     }
 }

@@ -3,6 +3,7 @@ package com.example.dagger2training.screens.home;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 @SuppressLint("ViewConstructor")
 public class RepoListItem extends FrameLayout {
+    private final Picasso picasso;
 
     @BindView(R.id.user_avatar)
     ImageView avatarImage;
@@ -45,15 +47,15 @@ public class RepoListItem extends FrameLayout {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.fullDate();
 
-    public RepoListItem(Context context) {
+    // Constructor injection of picasso, we inject picasso through the constructor instead of
+    // instantiate it in the class
+    public RepoListItem(Context context, Picasso picasso) {
         super(context);
-        init();
-    }
-
-    private void init() {
+        this.picasso = picasso;
         inflate(getContext(), R.layout.list_item_repo, this);
         ButterKnife.bind(this);
     }
+
 
     public void setRepo(GithubRepo githubRepo) {
         Locale locale = getResources().getConfiguration().locale;
@@ -71,8 +73,7 @@ public class RepoListItem extends FrameLayout {
         updatedAt.setText(getResources()
                 .getString(R.string.last_pushed, DATE_TIME_FORMATTER.print(githubRepo.updatedAt)));
 
-        Picasso.with(getContext())
-                .load(githubRepo.owner.avatarUrl)
+       picasso.load(githubRepo.owner.avatarUrl)
                 .placeholder(R.drawable.ic_person_black_24dp)
                 .into(avatarImage);
     }
