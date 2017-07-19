@@ -2,6 +2,7 @@ package com.example.dagger2training;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 import com.example.dagger2training.network.DateTimeConverter;
 import com.example.dagger2training.network.GithubService;
@@ -52,6 +53,9 @@ public class GithubApplication extends Application {
 
 
         Timber.plant(new Timber.DebugTree());
+
+        // group CONTEXT
+        Context context = this;
 
         // group NETWORK
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
