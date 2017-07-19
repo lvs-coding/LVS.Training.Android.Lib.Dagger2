@@ -29,12 +29,10 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.repo_home_list)
     ListView listView;
 
-    Call<List<GithubRepo>> reposCall;
-
-    @Inject
     GithubService githubService;
 
-    @Inject
+    Call<List<GithubRepo>> reposCall;
+
     AdapterRepos adapterRepos;
 
     @Override
@@ -44,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
 
+        adapterRepos = new AdapterRepos(this);
         listView.setAdapter(adapterRepos);
 
         reposCall = githubService.getAllRepos();

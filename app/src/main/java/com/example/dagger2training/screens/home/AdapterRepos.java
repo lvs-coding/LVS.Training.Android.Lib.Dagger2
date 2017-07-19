@@ -19,12 +19,9 @@ public class AdapterRepos extends BaseAdapter {
 
     private final List<GithubRepo> repoList = new ArrayList<>(0);
     private final Context context;
-    private final Picasso picasso;
 
-    @Inject
-    public AdapterRepos(HomeActivity context, Picasso picasso) {
+    public AdapterRepos(Context context) {
         this.context = context;
-        this.picasso = picasso;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class AdapterRepos extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         RepoListItem repoListItem;
         if(convertView == null) {
-            repoListItem = new RepoListItem(context, picasso);
+            repoListItem = new RepoListItem(context);
         } else {
             repoListItem = RepoListItem.class.cast(convertView);
         }

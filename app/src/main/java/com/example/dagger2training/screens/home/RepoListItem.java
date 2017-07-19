@@ -22,8 +22,6 @@ import org.joda.time.format.DateTimeFormatter;
 @SuppressLint("ViewConstructor")
 public class RepoListItem extends FrameLayout {
 
-    private final Picasso picasso;
-
     @BindView(R.id.user_avatar)
     ImageView avatarImage;
 
@@ -47,9 +45,8 @@ public class RepoListItem extends FrameLayout {
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.fullDate();
 
-    public RepoListItem(Context context, Picasso picasso) {
+    public RepoListItem(Context context) {
         super(context);
-        this.picasso = picasso;
         inflate(getContext(), R.layout.list_item_repo, this);
         ButterKnife.bind(this);
     }
@@ -68,8 +65,5 @@ public class RepoListItem extends FrameLayout {
         updatedAt.setText(getResources()
                 .getString(R.string.last_pushed, DATE_TIME_FORMATTER.print(githubRepo.updatedAt)));
 
-        picasso.load(githubRepo.owner.avatarUrl)
-                .placeholder(R.drawable.ic_person_black_24dp)
-                .into(avatarImage);
     }
 }
