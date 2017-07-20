@@ -43,9 +43,9 @@ public class GithubApplication extends Application {
 
     //GSON              okhttp
 
-    //          logger      cache
+    //             logger      cache
 
-    //          timber      file
+    //             timber      file
 
     @Override
     public void onCreate() {
@@ -57,41 +57,18 @@ public class GithubApplication extends Application {
         // group CONTEXT
         Context context = this;
 
-        // group NETWORK
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Timber.i(message);
-            }
-        });
-
-
-        File cacheFile = new File(getCacheDir(),"okhttp.cache");
-        cacheFile.mkdirs();
-        Cache cache = new Cache(cacheFile, 10 * 1000 * 1000); //10MB cache
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .cache(cache)
-                .build();
-
         // group PICASSO
-        picasso = new Picasso.Builder(this)
+        picasso = new Picasso.Builder(context)
                 .downloader(new OkHttp3Downloader(okHttpClient))
                 .build();
 
-        // group CLIENT
+        // group GSON
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(DateTime.class, new DateTimeConverter());
         Gson gson = gsonBuilder.create();
 
-        Retrofit gitHubRetrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(okHttpClient)
-                .baseUrl("https://api.github.com/")
-                .build();
 
-        githubService = gitHubRetrofit.create(GithubService.class);
+
     }
 
     public GithubService getGithubService() {
