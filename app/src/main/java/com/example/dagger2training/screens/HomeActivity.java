@@ -43,8 +43,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        githubService = GithubApplication.get(this).getGithubService();
-        picasso = GithubApplication.get(this).getPicasso();
+//        githubService = GithubApplication.get(this).getGithubService();
+//        picasso = GithubApplication.get(this).getPicasso();
 
         adapterRepos = new AdapterRepos(this, picasso);
         listView.setAdapter(adapterRepos);
