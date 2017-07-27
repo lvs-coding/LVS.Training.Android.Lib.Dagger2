@@ -2,6 +2,7 @@ package com.example.dagger2training;
 
 import android.app.Activity;
 import android.app.Application;
+import android.util.Log;
 
 import com.example.dagger2training.network.GithubService;
 import com.squareup.picasso.Picasso;
