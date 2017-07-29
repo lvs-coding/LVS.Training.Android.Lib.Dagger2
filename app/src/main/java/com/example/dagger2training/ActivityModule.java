@@ -18,7 +18,6 @@ public class ActivityModule {
 
     @Provides
     @GithubApplicationScope
-    @ApplicationContext
     public Context context() {
         return  context;
     }
