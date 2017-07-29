@@ -4,6 +4,8 @@ import android.content.Context;
 
 import java.io.File;
 
+import javax.inject.Named;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -35,7 +37,7 @@ public class NetworkModule {
 
     @Provides
     @GithubApplicationScope
-    public File cacheFile(Context context) {
+    public File cacheFile(@ApplicationContext Context context) {
         return  new File(context.getCacheDir(),"okhttp.cache");
     }
 

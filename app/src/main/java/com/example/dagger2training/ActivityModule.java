@@ -1,5 +1,6 @@
 package com.example.dagger2training;
 
+import android.app.Activity;
 import android.content.Context;
 
 import javax.inject.Named;
@@ -8,18 +9,17 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module
-public class ContextModule {
+public class ActivityModule {
+    private final Activity context;
 
-    public ContextModule(Context context) {
+    public ActivityModule(Activity context) {
         this.context = context;
     }
-
-    private final Context context;
 
     @Provides
     @GithubApplicationScope
     @ApplicationContext
     public Context context() {
-        return context;
+        return  context;
     }
 }
