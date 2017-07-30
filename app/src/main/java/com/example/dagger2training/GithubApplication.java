@@ -11,6 +11,8 @@ import timber.log.Timber;
 
 public class GithubApplication extends Application {
 
+    private GithubApplicationComponent component;
+
     public static GithubApplication get(Activity activity) {
         return (GithubApplication) activity.getApplication();
     }
@@ -33,11 +35,8 @@ public class GithubApplication extends Application {
         picasso = component.getPicasso();
     }
 
-    public GithubService getGithubService() {
-        return githubService;
+    public GithubApplicationComponent component() {
+        return component;
     }
 
-    public Picasso getPicasso() {
-        return picasso;
-    }
 }
