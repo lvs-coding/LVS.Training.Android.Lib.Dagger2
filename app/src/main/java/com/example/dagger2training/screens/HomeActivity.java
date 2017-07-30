@@ -28,8 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     @BindView(R.id.repo_home_list)
     ListView listView;
 
+
     GithubService githubService;
-    Picasso picasso;
 
     // For cancellation
     Call<List<GithubRepo>> reposCall;
@@ -49,7 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                 .build();
 
         adapterRepos = component.adapterRepos();
-        githubService = GithubApplication.get(this).getGithubService();
+        githubService = component.githubService();
 
         listView.setAdapter(adapterRepos);
 
