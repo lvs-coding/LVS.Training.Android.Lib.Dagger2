@@ -48,10 +48,9 @@ public class HomeActivity extends AppCompatActivity {
                 .githubApplicationComponent(GithubApplication.get(this).component())
                 .build();
 
-        githubService = GithubApplication.get(this).getGithubService();
-        picasso = GithubApplication.get(this).getPicasso();
-
         adapterRepos = component.adapterRepos();
+        githubService = GithubApplication.get(this).getGithubService();
+
         listView.setAdapter(adapterRepos);
 
         reposCall = githubService.getAllRepos();
