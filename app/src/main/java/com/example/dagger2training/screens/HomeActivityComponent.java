@@ -11,5 +11,5 @@ import dagger.Component;
 public interface HomeActivityComponent {
     AdapterRepos adapterRepos();
 
-    GithubService githubService();
+   // GithubService githubService();
 }

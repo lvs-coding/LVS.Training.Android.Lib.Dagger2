@@ -43,17 +43,15 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        githubService = GithubApplication.get(this).getGithubService();
-        picasso = GithubApplication.get(this).getPicasso();
-
         HomeActivityComponent component =  DaggerHomeActivityComponent.builder()
                 .homeActivityModule(new HomeActivityModule(this))
                 .githubApplicationComponent(GithubApplication.get(this).component())
                 .build();
 
-        adapterRepos = component.adapterRepos();
-        githubService = component.githubService();
+        githubService = GithubApplication.get(this).getGithubService();
+        picasso = GithubApplication.get(this).getPicasso();
 
+        adapterRepos = component.adapterRepos();
         listView.setAdapter(adapterRepos);
 
         reposCall = githubService.getAllRepos();
