@@ -10,6 +10,7 @@ import dagger.Provides;
 
 @Module
 public class ActivityModule {
+
     private final Activity context;
 
     public ActivityModule(Activity context) {
@@ -18,7 +19,8 @@ public class ActivityModule {
 
     @Provides
     @GithubApplicationScope
+    @Named("activity_context")
     public Context context() {
-        return  context;
+        return context;
     }
 }

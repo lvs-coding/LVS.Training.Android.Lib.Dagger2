@@ -18,7 +18,7 @@ public class HomeActivityModule {
 
     @Provides
     @HomeActivityScope
-    public AdapterRepos adapterRepos(Picasso picasso) {
-        return new AdapterRepos(homeActivity, picasso);
+    public HomeActivity homeActivity() {
+        return homeActivity;
     }
 }

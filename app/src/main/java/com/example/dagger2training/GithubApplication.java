@@ -21,13 +21,25 @@ public class GithubApplication extends Application {
 
     private Picasso picasso;
 
+    //   Activity
+
+    //GithubService   picasso
+
+    //retrofit    OkHttp3Downloader
+
+    //gson      okhttp
+
+    //      logger    cache
+
+    //      timber           file
+
     @Override
     public void onCreate() {
         super.onCreate();
 
         Timber.plant(new Timber.DebugTree());
 
-        GithubApplicationComponent component = DaggerGithubApplicationComponent.builder()
+        component = DaggerGithubApplicationComponent.builder()
                 .contextModule(new ContextModule(this))
                 .build();
 
@@ -35,17 +47,7 @@ public class GithubApplication extends Application {
         picasso = component.getPicasso();
     }
 
-    public GithubService getGithubService() {
-        return githubService;
-    }
-
-    public Picasso getPicasso() {
-        return picasso;
-    }
-
-
     public GithubApplicationComponent component() {
         return component;
     }
-
 }

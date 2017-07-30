@@ -9,7 +9,6 @@ import dagger.Component;
 @HomeActivityScope
 @Component(modules = HomeActivityModule.class, dependencies = GithubApplicationComponent.class)
 public interface HomeActivityComponent {
-    AdapterRepos adapterRepos();
 
-    GithubService githubService();
+    void injectHomeActivity(HomeActivity homeActivity);
 }

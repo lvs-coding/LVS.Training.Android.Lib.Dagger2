@@ -16,6 +16,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -23,19 +25,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
+
 public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.repo_home_list)
     ListView listView;
 
-
-    GithubService githubService;
-
-    // For cancellation
     Call<List<GithubRepo>> reposCall;
 
-    AdapterRepos adapterRepos;
+    @Inject
+    GithubService githubService;
 
+    @Inject
+    AdapterRepos adapterRepos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,12 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
-        HomeActivityComponent component =  DaggerHomeActivityComponent.builder()
+        HomeActivityComponent component = DaggerHomeActivityComponent.builder()
                 .homeActivityModule(new HomeActivityModule(this))
                 .githubApplicationComponent(GithubApplication.get(this).component())
                 .build();
 
-        adapterRepos = component.adapterRepos();
-        githubService = component.githubService();
+        component.injectHomeActivity(this);
 
         listView.setAdapter(adapterRepos);
 

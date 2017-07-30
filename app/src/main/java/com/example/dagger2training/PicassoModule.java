@@ -11,13 +11,12 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
 
-@Module(includes = { ContextModule.class, NetworkModule.class })
-public class PicassoModule
-{
+@Module(includes = {ContextModule.class, NetworkModule.class})
+public class PicassoModule {
+
     @Provides
     @GithubApplicationScope
     public Picasso picasso(@ApplicationContext Context context, OkHttp3Downloader okHttp3Downloader) {
-
         return new Picasso.Builder(context)
                 .downloader(okHttp3Downloader)
                 .build();

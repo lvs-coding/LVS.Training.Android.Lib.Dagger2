@@ -19,8 +19,8 @@ public class GithubServiceModule {
 
     @Provides
     @GithubApplicationScope
-    public GithubService githubService(Retrofit githubRetrofit) {
-        return githubRetrofit.create(GithubService.class);
+    public GithubService githubService(Retrofit gitHubRetrofit) {
+        return gitHubRetrofit.create(GithubService.class);
     }
 
     @Provides
@@ -40,4 +40,5 @@ public class GithubServiceModule {
                 .baseUrl("https://api.github.com/")
                 .build();
     }
+
 }
